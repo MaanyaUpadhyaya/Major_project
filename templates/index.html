@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            background-image: 'bg.jpg';
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            background-color: rgba(129, 212, 250, 0.8); 
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(99, 188, 248, 0.8); 
+        }
+        .message-container {
+            margin-bottom: 20px;
+        }
+        .user-message {
+            background-color: #caf1fd;
+            color: #000000;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            text-align: right;
+            word-wrap: break-word;
+        }
+        .bot-message {
+            background-color: #9af5e7;
+            color: #000000;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+        input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #000000;
+            margin-right: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #000000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PreScience MED</h1>
+        <div class="message-container">
+            {% if user_message %}
+                <div class="user-message">{{ user_message }}</div>
+            {% endif %}
+            {% for message in bot_response %}
+                <div class="bot-message">{{ message }}</div>
+            {% endfor %}
+        </div>
+        <form action="/chat" method="post">
+            <input type="text" name="user_message" id="user_message" placeholder="Type your message here" autofocus>
+            <br></br>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+</body>
+</html>

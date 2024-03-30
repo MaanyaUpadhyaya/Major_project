@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Disease Prediction Result</h1>
+            <p class="lead">Based on the symptoms you provided, the predicted disease is:</p>
+            <div class="alert alert-primary" role="alert">
+                {{ prediction }}
+            </div>
+            <p class="lead">Consult a medical professional for further evaluation and treatment.</p>
+            <a class="btn btn-primary" href="/" role="button">Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
