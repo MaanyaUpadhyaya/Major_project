@@ -3,78 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>Medical Chatbot</title>
     <style>
         body {
-            background-image: 'bg.jpg';
             font-family: Arial, sans-serif;
-            background-size: cover;
-            background-position: center;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: rgba(129, 212, 250, 0.8); 
         }
-        .container {
-            max-width: 1000px;
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: rgba(99, 188, 248, 0.8); 
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .message-container {
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="button"], input[type="submit"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="button"]:hover, input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #greeting {
+            text-align: center;
             margin-bottom: 20px;
         }
-        .user-message {
-            background-color: #caf1fd;
-            color: #000000;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 5px;
-            text-align: right;
-            word-wrap: break-word;
-        }
-        .bot-message {
-            background-color: #9af5e7;
-            color: #000000;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 5px;
-            word-wrap: break-word;
-        }
-        input[type="text"] {
-            width: calc(100% - 80px);
-            padding: 10px;
+
+        #symptomDialog {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 20px;
             border-radius: 5px;
-            border: 1px solid #000000;
-            margin-right: 10px;
+            margin-top: 10px;
         }
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #000000;
-            border: none;
-            border-radius: 5px;
+
+        button.symptom {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
             cursor: pointer;
+            background-color: #ddd;
+        }
+
+        button.symptom:hover {
+            background-color: #ccc;
+        }
+        #selectedSymptoms {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
         }
     </style>
+    <script>
+        var selectedSymptoms = [];
+    
+        function greetUser() {
+            var username = document.getElementById("name").value;
+            document.getElementById("greeting").innerText = "Hello, " + username + "!";
+            document.getElementById("symptomDialog").style.display = "block";
+        }
+    
+        window.onload = function() {
+            showSymptomDialog();
+        };
+
+        function showSymptomDialog() {
+            document.getElementById("symptomDialog").style.display = "block";
+        }
+
+        function addSymptom(symptom) {
+            var textarea = document.getElementById("symptomsTextarea");
+            textarea.value += symptom + "\n";
+        }
+
+        function toggleSymptom(symptom) {
+            var index = selectedSymptoms.indexOf(symptom);
+            if (index === -1) {
+                selectedSymptoms.push(symptom);
+                console.log("Selected symptom added:", symptom);
+            } else {
+                selectedSymptoms.splice(index, 1);
+                console.log("Selected symptom removed:", symptom);
+            }
+            updateSelectedSymptoms();
+        }
+
+
+        function updateSelectedSymptoms() {
+            var selectedSymptomsText = "";
+            for (var i = 0; i < selectedSymptoms.length; i++) {
+                selectedSymptomsText += "-" + selectedSymptoms[i] + "<br>";
+            }
+            document.getElementById("selectedSymptoms").innerHTML = "<h2>Selected Symptoms:</h2>" + selectedSymptomsText;
+        }
+    </script>
+    
 </head>
 <body>
-    <div class="container">
-        <h1>PreScience MED</h1>
-        <div class="message-container">
-            {% if user_message %}
-                <div class="user-message">{{ user_message }}</div>
-            {% endif %}
-            {% for message in bot_response %}
-                <div class="bot-message">{{ message }}</div>
+    <h1>Medical Chatbot</h1>
+    <form method="POST" action="/">
+        <label for="name">Enter your name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+    
+        <div id="symptomDialog">
+            <h2>Select Symptoms:</h2>
+            {% for symptom in symptoms %}
+                <button type="button" class="symptom" onclick="toggleSymptom('{{ symptom }}')">{{ symptom }}</button>
             {% endfor %}
         </div>
-        <form action="/chat" method="post">
-            <input type="text" name="user_message" id="user_message" placeholder="Type your message here" autofocus>
-            <br></br>
-            <input type="submit" value="Send">
-        </form>
-    </div>
+    
+        <div id="selectedSymptoms"></div>
+    
+        <label for="symptomDuration">How long have you been experiencing the symptoms (in days)?</label><br>
+        <input type="number" id="symptomDuration" name="symptom_duration" min="1" required><br>
+    
+        <input type="submit" value="Submit">
+    </form>
+    
+    
 </body>
 </html>
