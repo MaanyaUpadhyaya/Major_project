@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #3de3f9;
             margin: 0;
             padding: 0;
         }
@@ -18,12 +18,15 @@
         }
 
         form {
-            max-width: 500px;
+            max-width: 900px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #87f5e4;
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, 
+            rgba(0, 0, 0, 0.12) 0px -12px 30px, 
+            rgba(0, 0, 0, 0.12) 0px 4px 6px, 
+            rgba(0, 0, 0, 0.17)
         }
 
         label {
@@ -36,13 +39,13 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #272525;
             border-radius: 5px;
             box-sizing: border-box;
         }
 
         input[type="button"]:hover, input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #84f089;
         }
 
         #greeting {
@@ -52,7 +55,7 @@
 
         #symptomDialog {
             display: none;
-            background-color: #f9f9f9;
+            background-color: #a3ecf9;
             padding: 20px;
             border-radius: 5px;
             margin-top: 10px;
@@ -62,19 +65,19 @@
             display: inline-block;
             margin: 5px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             border-radius: 3px;
             cursor: pointer;
-            background-color: #ddd;
+            background-color: #ffffff;
         }
 
         button.symptom:hover {
-            background-color: #ccc;
+            background-color: #c0f5d0;
         }
         #selectedSymptoms {
             margin-top: 20px;
             padding: 10px;
-            background-color: #f9f9f9;
+            background-color: #9df9ee;
             border-radius: 5px;
         }
     </style>
@@ -111,20 +114,20 @@
             }
             updateSelectedSymptoms();
         }
-
-
         function updateSelectedSymptoms() {
+            document.getElementById("selectedSymptomInput").value = selectedSymptoms.join(',');
             var selectedSymptomsText = "";
             for (var i = 0; i < selectedSymptoms.length; i++) {
                 selectedSymptomsText += "-" + selectedSymptoms[i] + "<br>";
-            }
-            document.getElementById("selectedSymptoms").innerHTML = "<h2>Selected Symptoms:</h2>" + selectedSymptomsText;
         }
+    document.getElementById("selectedSymptoms").innerHTML = "<h2>Selected Symptoms:</h2>" + selectedSymptomsText;
+}
+
     </script>
     
 </head>
 <body>
-    <h1>Medical Chatbot</h1>
+    <h1>PrescienceMED</h1>
     <form method="POST" action="/">
         <label for="name">Enter your name:</label><br>
         <input type="text" id="name" name="name" required><br>
@@ -135,7 +138,7 @@
                 <button type="button" class="symptom" onclick="toggleSymptom('{{ symptom }}')">{{ symptom }}</button>
             {% endfor %}
         </div>
-    
+        <input type="hidden" id="selectedSymptomInput" name="selectedSymptoms" value="">
         <div id="selectedSymptoms"></div>
     
         <label for="symptomDuration">How long have you been experiencing the symptoms (in days)?</label><br>
