@@ -19,5 +19,6 @@ The project is motivated by the urgent need within the healthcare domain to effe
 | Disk Space           | Minimum 5GB                           |
 
 ## Installation
-1. Clone this repository to your local machine:
+1. Clone this repository to your local machine or as for a pull request
+2. Once the code is on your local machine, please maksure all the datasets are available
 
