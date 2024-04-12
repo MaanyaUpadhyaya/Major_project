@@ -20,5 +20,6 @@ The project is motivated by the urgent need within the healthcare domain to effe
 
 ## Installation
 1. Clone this repository to your local machine or as for a pull request
-2. Once the code is on your local machine, please maksure all the datasets are available
+2. Once the code is on your local machine, please maake sure all the datasets are available in the directory selected
+3. Please make sure you have all the modules and dependencies and 
 
